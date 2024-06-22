@@ -14,7 +14,7 @@ module Protospace40958
     config.i18n.default_locale = :ja
     config.time_zone = 'Tokyo'
     config.active_storage.variant_processor = :mini_magick
-
+    config.i18n.available_locales = [:en, :ja]
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
