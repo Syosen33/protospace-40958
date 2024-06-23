@@ -2,7 +2,7 @@ class PrototypesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
 
   def index
-    
+    @prototypes = Prototype.all
   end
 
   def new
@@ -10,17 +10,18 @@ class PrototypesController < ApplicationController
   end
 
   def create
-    @prototype = Prototype.new(prototype_params)
+    @prototype = current_user.prototypes.build(prototype_params)
     if @prototype.save
-      redirect_to root_path
+      redirect_to @prototype, notice: 'プロトタイプが保存されました。'
     else
-      render :new, status: :unprocessable_entity
+      flash.now[:alert] = 'プロトタイプの保存に失敗しました。'
+      render :new
     end
   end
 
   private
 
   def prototype_params
-   params.require(:prototype).permit(:title, :catch_copy, :concept, :image).merge(user_id: current_user.id)
+    params.require(:prototype).permit(:title, :catch_copy, :concept, :image)
   end
 end
