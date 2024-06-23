@@ -19,6 +19,31 @@ class PrototypesController < ApplicationController
     end
   end
 
+  def show
+    @prototype = Prototype.find(params[:id])
+  end
+
+  def destroy
+    prototype = Prototype.find(params[:id])
+    prototype.destroy
+    redirect_to root_path
+  end
+
+  def edit
+    @prototype = Prototype.find(params[:id])
+  end
+
+  def update
+    @prototype = Prototype.find(params[:id]) # @prototype としてインスタンス変数を定義する
+    if @prototype.update(prototype_params)
+      redirect_to @prototype, notice: 'プロトタイプが更新されました。'
+    else
+      flash.now[:alert] = 'プロトタイプの更新に失敗しました。'
+      render :edit
+    end
+  end
+
+  
   private
 
   def prototype_params
