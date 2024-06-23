@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
  
   has_many :prototypes
-  has_many :messages
+  has_many :comment
 # バリデーション
   validates :name, presence: true
   validates :profile, presence: true
