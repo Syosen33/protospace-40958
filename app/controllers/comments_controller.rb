@@ -8,8 +8,9 @@ class CommentsController < ApplicationController
     if @comment.save
       redirect_to prototype_path(@prototype), notice: 'コメントが作成されました。'
     else
-      flash[:alert] = 'コメントを保存できませんでした。'
-      render 'prototypes/show'  # エラーがある場合は詳細ページに戻る
+      @comments = @prototype.comments.includes(:user)
+      flash.now[:alert] = 'コメントを保存できませんでした。'
+      render 'prototypes/show'
     end
   end
 
