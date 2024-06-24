@@ -34,7 +34,10 @@ class PrototypesController < ApplicationController
 
   def edit
     @prototype = Prototype.find(params[:id])
+    unless current_user == @prototype.user
+      redirect_to action: :index, alert: '他のユーザーのプロトタイプを編集することはできません。'
   end
+end
 
   def update
     @prototype = Prototype.find(params[:id]) # @prototype としてインスタンス変数を定義する
@@ -52,4 +55,5 @@ class PrototypesController < ApplicationController
   def prototype_params
     params.require(:prototype).permit(:title, :catch_copy, :concept, :image)
   end
+
 end
